@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>New Store</h1>
+
+<form method="POST">
+    <fieldset>
+        <legend>Please enter store information:</legend>
+            {{ form.csrf_token }}
+    
+            {{ form.title.label }}
+            {{ form.title }}
+            
+            {{ form.address.label }}
+            {{ form.address }}
+                
+            {{ form.submit }}
+
+        <!-- <input type="submit" value="Submit"> -->
+    </fieldset>
+</form>
+
+
+{% endblock %}
