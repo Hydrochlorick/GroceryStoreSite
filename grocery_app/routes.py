@@ -102,21 +102,13 @@ def item_detail(item_id):
 
     # If form was submitted and was valid:
     if form.validate_on_submit():
-        # Create a new GroceryItem object and save it to the database
-        # new_item = GroceryItem(
-        #     name = form.name.data,
-        #     price = form.price.data,
-        #     category = form.category.data,
-        #     photo_url = form.photo_url.data,
-        #     store = form.store.data,
-        #     store_id = form.store.data.id
-        # )
+        
         item.name = form.name.data
-        item.price = form.price.data,
-        item.category = form.category.data,
-        item.photo_url = form.photo_url.data,
+        item.price = form.price.data
+        item.category = form.category.data
+        item.photo_url = form.photo_url.data
 
-        db.session.add(new_item)
+        db.session.add(item)
         db.session.commit()
 
         # Flash a success message
