@@ -1,9 +1,9 @@
-from grocery_app.models import ItemCategory, GroceryStore
+from grocery_app.models import ItemCategory, GroceryStore, User
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField, SubmitField
+from wtforms import StringField, DateField, SelectField, SubmitField, PasswordField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.fields.core import FloatField
-from wtforms.validators import DataRequired, Length, NumberRange, URL
+from wtforms.validators import DataRequired, Length, NumberRange, URL, ValidationError
 
 class GroceryStoreForm(FlaskForm):
     title = StringField('Store Name', validators=[DataRequired(), Length(min=3, max=80)])
@@ -20,3 +20,18 @@ class GroceryItemForm(FlaskForm):
     submit = SubmitField('Submit')
     
 
+class SignUpForm(FlaskForm):
+    username = StringField('User Name', validators=[DataRequired(), Length(min=3, max=50)])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Sign Up')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('That user name is taken. Please try another one')
+
+
+class LoginForm(FlaskForm):
+    username = StringField('User Name', validators=[DataRequired(), Length(min=3, max=50)])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Log in')
